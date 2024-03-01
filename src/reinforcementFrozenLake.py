@@ -10,14 +10,14 @@ def run(episodes, agentMode=True, render=False): # agentMode: true for training,
     # load or initialize Q-table
     if agentMode:
         
-        # initialize q-table for training
+        # initialize q table for training
         q = np.zeros((env.observation_space.n, env.action_space.n))
     else:
         # load q-table from file for evaluation
         with open('frozen_lake4x4.pkl', 'rb') as f:
             q = pickle.load(f)
 
-    # parameters for Q-learning
+    # parameters for q learning
     learningRate = 0.9
     discount = 0.9
     epsilon = 1
@@ -67,7 +67,7 @@ def run(episodes, agentMode=True, render=False): # agentMode: true for training,
     plt.plot(totalRewards)
     plt.savefig('frozen_lake4x4.png')
 
-    # save the Q-table if training
+    # save the q table if training
     if agentMode:
         with open("frozen_lake4x4.pkl", "wb") as f:
             pickle.dump(q, f)
