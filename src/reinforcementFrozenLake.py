@@ -20,7 +20,7 @@ def run(episodes, agentMode=True, render=False): # agentMode: true for training,
     # parameters for q learning
     learningRate = 0.9
     discount = 0.9
-    epsilon = 1
+    epsilon = 0.5
     epsilonDecay = 0.0001
     rng = np.random.default_rng()
 
