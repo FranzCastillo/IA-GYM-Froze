@@ -7,7 +7,7 @@ def run(episodes, agentMode=True, render=False): # agentMode: true for training,
     # initialize the environment with given parameters
     env = gym.make('FrozenLake-v1', map_name="4x4", is_slippery=True, render_mode='human' if render else None)
 
-    # load or initialize Q-table
+    # load or initialize q table
     if agentMode:
         
         # initialize q table for training
