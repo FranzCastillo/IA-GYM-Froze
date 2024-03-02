@@ -70,9 +70,8 @@ def run(env, episodes, agentMode=True, render=False):
         with open("src\\frozenLake4x4.pkl", "wb") as f:
             pickle.dump(q, f)
 
-
-if __name__ == '__main__':
-    train = False
+def main():
+    train = True
 
     # Initialize the environment with given parameters
     env = gym.make(
@@ -88,3 +87,6 @@ if __name__ == '__main__':
         agentMode=train,  # agentMode: true for training, false for evaluation
         render=(not train)  # render: true for visualization, false for no visualization
     )
+
+if __name__ == '__main__':
+    main()
