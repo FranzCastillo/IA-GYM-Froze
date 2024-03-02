@@ -68,12 +68,12 @@ def run(episodes, agentMode=True, render=False): # agentMode: true for training,
     for t in range(episodes):
         totalRewards[t] = np.sum(episodesReward[max(0, t-100):(t+1)])
     plt.plot(totalRewards)
-    plt.savefig('frozen_lake4x4.png')
+    plt.savefig('frozenLake4x4.png')
 
     # save the q table if training
     if agentMode:
-        with open("frozen_lake4x4.pkl", "wb") as f:
+        with open("frozenLake4x4.pkl", "wb") as f:
             pickle.dump(q, f)
 
 if __name__ == '__main__':
-    run(10000, agentMode=True, render=True)
+    run(10, agentMode=True, render=True)
