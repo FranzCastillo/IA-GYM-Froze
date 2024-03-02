@@ -4,15 +4,8 @@ import gymnasium as gym
 import numpy as np
 from gymnasium.envs.toy_text.frozen_lake import generate_random_map
 
-desc = [
-    "SFFF",
-    "FHFH",
-    "FFFH",
-    "HFFG"
-]
 
-
-def run(episodes, agentMode=True, render=False):
+def run(env, episodes, agentMode=True, render=False):
     """
     Run the frozen lake environment with given parameters
     :param episodes:  number of episodes
@@ -27,21 +20,13 @@ def run(episodes, agentMode=True, render=False):
     epsilon_decay = 0.0001
     rng = np.random.default_rng()
 
-    # Initialize the environment with given parameters
-    env = gym.make(
-        'FrozenLake-v1',
-        desc=generate_random_map(size=4),
-        is_slippery=True,
-        render_mode='human' if render else None
-    )
-
     # Load or initialize Q table
     if agentMode:
         # Initialize q table for training
         q = np.zeros((env.observation_space.n, env.action_space.n))
     else:
         # Load q-table from file for evaluation
-        with open('frozen_lake4x4.pkl', 'rb') as f:
+        with open('src\\frozenLake4x4.pkl', 'rb') as f:
             q = pickle.load(f)
 
     # Store rewards for each episode
@@ -82,13 +67,24 @@ def run(episodes, agentMode=True, render=False):
 
     # Save the q table if training
     if agentMode:
-        with open("frozenLake4x4.pkl", "wb") as f:
+        with open("src\\frozenLake4x4.pkl", "wb") as f:
             pickle.dump(q, f)
 
 
 if __name__ == '__main__':
+    train = False
+
+    # Initialize the environment with given parameters
+    env = gym.make(
+        'FrozenLake-v1',
+        desc=generate_random_map(size=4, seed=35),
+        is_slippery=True,
+        render_mode='human' if (not train) else None
+    )
+
     run(
-        100_000,  # number of episodes
-        agentMode=True,  # agentMode: true for training, false for evaluation
-        render=False  # render: true for visualization, false for no visualization
+        env,
+        1_000_000 if train else 5,  # number of episodes
+        agentMode=train,  # agentMode: true for training, false for evaluation
+        render=(not train)  # render: true for visualization, false for no visualization
     )
